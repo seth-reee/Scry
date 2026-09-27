@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Scry
+Comment=Preview STL and 3MF models
+Exec=scry %f
+Icon=scry
+Terminal=false
+Categories=Graphics;3DGraphics;
+MimeType=model/stl;model/3mf;

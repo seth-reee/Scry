@@ -1,0 +1,23 @@
+pkgname=scry
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Lightweight STL and 3MF previewer with Omarchy theme support'
+arch=('x86_64' 'aarch64')
+url='https://github.com/seth-reee/Scry'
+license=('MIT')
+depends=('qt6-base' 'libzip' 'gcc-libs' 'glibc')
+optdepends=('qt6-wayland: native Wayland support')
+makedepends=('cmake' 'ninja' 'pkgconf')
+options=('!debug')
+source=("$pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('97963b43c91ce95285d662bf2c46e69e694653283565ba9cd5d4bf6791ea0a88')
+
+build() {
+  cmake -S "$srcdir/Scry-$pkgver" -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
