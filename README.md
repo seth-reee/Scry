@@ -15,7 +15,7 @@ A lightweight STL and 3MF model previewer for [Omarchy](https://omarchy.org/).
 Download the package for your architecture from [Releases](https://github.com/seth-reee/Scry/releases), then install it with:
 
 ```bash
-sudo pacman -U scry-0.1.0-1-*.pkg.tar.zst
+sudo pacman -U scry-0.1.1-1-*.pkg.tar.zst
 ```
 
 The package recipe supports Omarchy on x86_64 and ARM64, using Arch Linux and Arch Linux ARM respectively. Choose the package whose filename matches your machine's architecture. ARM64 packages are built under QEMU and need a real ARM64 desktop check.
@@ -42,7 +42,7 @@ cmake --build build
 ./build/scry path/to/model.stl
 ```
 
-To build an Arch package from the release source archive, place `scry-0.1.0.tar.gz` in `packaging/` and run `makepkg -s` there.
+To build an Arch package from the release source archive, place `scry-0.1.1.tar.gz` in `packaging/` and run `makepkg -s` there.
 
 ## License
 

@@ -1,5 +1,5 @@
 pkgname=scry
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc='Lightweight STL and 3MF previewer with Omarchy theme support'
 arch=('x86_64' 'aarch64')
@@ -10,14 +10,14 @@ optdepends=('qt6-wayland: native Wayland support')
 makedepends=('cmake' 'ninja' 'pkgconf')
 options=('!debug')
 source=("$pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('97963b43c91ce95285d662bf2c46e69e694653283565ba9cd5d4bf6791ea0a88')
+sha256sums=('93fd4b74912028bc61d0018c67278cb121993fa7261d0b6a3fa4b10416339000')
 
 build() {
-  cmake -S "$srcdir/Scry-$pkgver" -B build -G Ninja \
+  cmake -S "$srcdir/Scry-$pkgver" -B "$srcdir/build-$pkgver" -G Ninja \
     -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
-  cmake --build build
+  cmake --build "$srcdir/build-$pkgver"
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="$pkgdir" cmake --install "$srcdir/build-$pkgver"
 }
