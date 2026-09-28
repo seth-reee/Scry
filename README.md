@@ -7,7 +7,7 @@ A lightweight STL and 3MF model previewer for [Omarchy](https://omarchy.org/).
 - Preview binary and ASCII STL files and 3MF models
 - Rotate, zoom, and reset the view with the mouse and keyboard
 - Open models from the file picker, drag and drop, or the command line
-- Follow the active Omarchy colors, including the mesh and dialogs
+- Follow the active Omarchy colors for the mesh and application styling
 - Read-only viewing: models are never modified
 
 ## Installation

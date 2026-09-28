@@ -204,11 +204,9 @@ public:
         QAction *openAction = toolbar->addAction("Open…");
         openAction->setShortcut(QKeySequence::Open);
         connect(openAction, &QAction::triggered, this, [this] {
-            QFileDialog dialog(this, "Open model");
-            dialog.setOption(QFileDialog::DontUseNativeDialog);
-            dialog.setFileMode(QFileDialog::ExistingFile);
-            dialog.setNameFilter("3D models (*.stl *.STL *.3mf *.3MF)");
-            if (dialog.exec() == QDialog::Accepted) open(dialog.selectedFiles().first());
+            const QString path = QFileDialog::getOpenFileName(
+                this, "Open model", QString(), "3D models (*.stl *.STL *.3mf *.3MF)");
+            if (!path.isEmpty()) open(path);
         });
         QAction *fitAction = toolbar->addAction("Reset view");
         fitAction->setShortcut(QKeySequence(Qt::Key_Home));
