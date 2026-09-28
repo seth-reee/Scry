@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(Scry VERSION 0.1.1 LANGUAGES CXX)
+project(Scry VERSION 0.1.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,7 +8,7 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBZIP REQUIRED IMPORTED_TARGET libzip)
 
-add_executable(scry src/main.cpp src/mesh.cpp src/mesh.h)
+add_executable(scry src/main.cpp src/mesh.cpp src/mesh.h src/graphics.cpp src/graphics.h)
 qt_add_resources(scry "assets" PREFIX "/" FILES LICENSE Scry.png)
 target_compile_definitions(scry PRIVATE SCRY_VERSION="${PROJECT_VERSION}")
 target_link_libraries(scry PRIVATE Qt6::Widgets Qt6::OpenGLWidgets PkgConfig::LIBZIP)
