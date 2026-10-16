@@ -66,3 +66,11 @@ When reporting a graphics issue, include this output, your GPU driver version, a
 ## License
 
 Scry is made by [seth-reee](https://github.com/seth-reee) and is available under the [MIT License](LICENSE).
+
+## Automated releases
+
+Every push to `master` prepares the next patch version, builds native x86_64 and ARM64 Arch packages, and publishes a GitHub release after both architecture jobs pass. The workflow updates the version and pinned source checksum, tags the tested commit, and verifies uploaded asset checksums before publishing. No extra secret is required. An explicitly increased, untagged version in CMake and PKGBUILD is respected.
+
+Pull requests build development packages without publishing. Manual runs on `master` also release; matching version tags build and publish that version. Package and source artifacts are available from the **Arch Linux packages** workflow. Published releases are verified on retries and never replaced.
+
+Scry checks the STL parser and actual OpenGL model rendering using Mesa software rendering under Xvfb. Both architectures verify package metadata and ELF architecture. CI does not establish real ARM desktop, Wayland, hardware GPU, or live network behavior.
