@@ -74,3 +74,50 @@ Every push to `master` prepares the next patch version, builds native x86_64 and
 Pull requests build development packages without publishing. Manual runs on `master` also release; matching version tags build and publish that version. Package and source artifacts are available from the **Arch Linux packages** workflow. Published releases are verified on retries and never replaced.
 
 Scry checks the STL parser and actual OpenGL model rendering using Mesa software rendering under Xvfb. Both architectures verify package metadata and ELF architecture. CI does not establish real ARM desktop, Wayland, hardware GPU, or live network behavior.
+
+## NixOS and Nix-based Omarchy forks
+
+The flake provides `scry` and `default` packages for `x86_64-linux` and
+`aarch64-linux`, with pinned nixpkgs dependencies. From a checkout:
+
+```sh
+nix build .#scry
+nix run .#scry
+```
+
+For a declarative NixOS install, add this input to your system flake:
+
+```nix
+inputs.scry.url = "github:seth-reee/Scry";
+```
+
+Pass `inputs` using `specialArgs = { inherit inputs; };`, then add to a module:
+
+```nix
+{ inputs, pkgs, ... }: {
+  environment.systemPackages = [
+    inputs.scry.packages.${pkgs.stdenv.hostPlatform.system}.scry
+  ];
+}
+```
+
+For Home Manager, use the same package in `home.packages` and provide `inputs`
+through `extraSpecialArgs`. Update your system's flake lock to get new releases.
+
+Scry requires desktop OpenGL 3.3. Configure the normal NixOS graphics driver
+for your GPU. Its Nix check phase renders a sample model under Mesa/Xvfb.
+The Nix bundle includes application dependencies; your desktop supplies the GPU driver.
+
+CI builds both architectures on native runners. Download the matching
+`scry-VERSION-nix-SYSTEM.nar.xz`, `.store-path`, and `SHA256SUMS-nix-SYSTEM`
+files from a release (replace VERSION and SYSTEM), then import and install:
+
+```sh
+sha256sum -c SHA256SUMS-nix-SYSTEM
+xz -dc scry-VERSION-nix-SYSTEM.nar.xz | sudo nix-store --import
+nix profile install "$(cat scry-VERSION-nix-SYSTEM.store-path)"
+```
+
+Nix must already be installed. Omit `sudo` for single-user Nix installations.
+The exports include the full runtime closure; a declarative flake installation
+is preferred on NixOS. Omarchy itself is optional.
